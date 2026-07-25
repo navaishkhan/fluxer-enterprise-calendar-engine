@@ -26,10 +26,10 @@ export default function CalendarGrid({ communityId }) {
                     {hasEvent && (
                         <div 
                             onClick={() => setSelectedEvent(hasEvent)}
-                            className="bg-blue-600/20 border border-blue-500/50 text-blue-400 text-xs p-1.5 rounded cursor-pointer hover:bg-blue-600/40 transition-colors truncate"
+                            className="bg-blue-600/20 border border-blue-500/50 text-blue-400 text-xs p-1.5 rounded cursor-pointer hover:bg-blue-600/40 transition-colors line-clamp-2 flex flex-col items-start"
                         >
                             <span className="font-bold mr-1">{hasEvent.startTime.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
-                            {hasEvent.name}
+                            <span className="leading-tight">{hasEvent.name}</span>
                         </div>
                     )}
                 </div>
