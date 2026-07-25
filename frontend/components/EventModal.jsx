@@ -4,7 +4,6 @@ export default function EventModal({ event, onClose }) {
     const [isAttending, setIsAttending] = useState(false);
     const [timeLeft, setTimeLeft] = useState('');
 
-    // Smart Timezone & Countdown Engine
     useEffect(() => {
         const interval = setInterval(() => {
             const now = new Date();
@@ -20,85 +19,70 @@ export default function EventModal({ event, onClose }) {
         return () => clearInterval(interval);
     }, [event.startTime]);
 
-    const handleRsvp = async () => {
-        // await fetch(`/api/events/${event.id}/rsvp`, { method: 'POST' });
-        setIsAttending(!isAttending);
-    };
-
     return (
-        <div className="absolute inset-0 bg-black/60 backdrop-blur-md flex items-center justify-center z-50 animate-[fadeIn_0.2s_ease-out]">
-            <div className="bg-[#14171C] rounded-2xl shadow-2xl w-full max-w-lg border border-gray-700 overflow-hidden transform transition-all">
+        <div className="absolute inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 animate-[fadeIn_0.2s_ease-out]">
+            <div className="bg-[#292B2F] rounded-2xl shadow-[0_25px_50px_-12px_rgba(0,0,0,0.5)] w-full max-w-sm border border-[#202225] overflow-hidden flex flex-col transform transition-all">
                 
-                {/* Banner */}
-                <div className="h-32 bg-gradient-to-r from-blue-600 to-purple-600 relative">
-                    <button onClick={onClose} className="absolute top-4 right-4 bg-black/30 hover:bg-black/50 text-white rounded-full p-1.5 transition-colors">
+                {/* Header */}
+                <div className="h-12 border-b border-[#202225] flex items-center justify-between px-4 bg-[#292B2F]">
+                    <div className="flex items-center">
+                        <svg className="w-4 h-4 mr-2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <h2 className="font-bold text-white text-sm">Event Details</h2>
+                    </div>
+                    <button onClick={onClose} className="text-gray-400 hover:text-white transition-colors">
                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                     </button>
                 </div>
-
-                <div className="p-8 pt-6 relative">
-                    {/* Floating Date Badge */}
-                    <div className="absolute -top-12 left-8 bg-[#1A1D24] border-2 border-gray-700 rounded-xl p-3 text-center shadow-xl">
-                        <div className="text-red-400 text-xs font-bold uppercase">{event.startTime.toLocaleDateString('en-US', { month: 'short' })}</div>
-                        <div className="text-white text-2xl font-black">{event.startTime.getDate()}</div>
+                
+                {/* Content */}
+                <div className="p-6 flex-1 overflow-y-auto">
+                    <div className="h-32 bg-[#5865F2] rounded-lg flex items-center justify-center mb-6 shadow-inner">
+                        <svg className="w-12 h-12 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                     </div>
 
-                    <div className="flex justify-between items-start mt-6">
-                        <div>
-                            <h2 className="text-2xl font-bold text-white mb-1">{event.name}</h2>
-                            <div className="text-sm font-medium text-blue-400 flex items-center">
-                                <svg className="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                                {event.startTime.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})} - {timeLeft}
-                            </div>
-                        </div>
+                    <h2 className="text-white font-bold text-xl mb-1">{event.name}</h2>
+                    <div className="flex items-center mb-6">
+                        <div className="w-4 h-4 bg-[#5865F2] rounded-full flex items-center justify-center text-[8px] font-bold text-white mr-2">U</div>
+                        <span className="text-sm font-semibold text-gray-300">Creator</span>
                     </div>
 
-                    <p className="text-gray-400 mt-4 text-sm leading-relaxed">
-                        Join us for an epic night! This event will take place in the dedicated voice channel. 
-                        Bring your friends via the external share link!
-                    </p>
+                    <div className="space-y-4 text-sm text-gray-400 leading-relaxed mb-8">
+                        <p>{event.description || "This is a description of our awesome event! We have been planning it for a while."}</p>
+                    </div>
 
-                    <div className="mt-6 flex items-center space-x-2 bg-[#1A1D24] p-3 rounded-lg border border-gray-800">
-                        <div className="bg-gray-800 p-2 rounded-md">
-                            <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"></path></svg>
+                    <div className="space-y-3 text-sm">
+                        <div className="flex justify-between items-center">
+                            <span className="text-gray-500 font-semibold">From:</span>
+                            <span className="text-gray-200 font-bold">{event.startTime.toLocaleString()}</span>
                         </div>
-                        <div>
-                            <div className="text-xs text-gray-500 font-bold uppercase tracking-wider">Location</div>
-                            <div className="text-white text-sm font-semibold flex items-center">
+                        <div className="flex justify-between items-center">
+                            <span className="text-gray-500 font-semibold">Location:</span>
+                            <span className="text-gray-200 font-bold flex items-center">
+                                <svg className="w-4 h-4 mr-1 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                                 {event.location}
-                                {timeLeft === 'Event is Live!' && <span className="ml-2 w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>}
-                            </div>
+                            </span>
                         </div>
-                    </div>
-
-                    {/* Footer Actions */}
-                    <div className="mt-8 flex items-center justify-between border-t border-gray-800 pt-6">
-                        <div className="flex -space-x-2">
-                            {/* Avatar stack */}
-                            <div className="w-8 h-8 rounded-full border-2 border-[#14171C] bg-gradient-to-tr from-yellow-400 to-orange-500"></div>
-                            <div className="w-8 h-8 rounded-full border-2 border-[#14171C] bg-gradient-to-tr from-cyan-400 to-blue-500"></div>
-                            <div className="w-8 h-8 rounded-full border-2 border-[#14171C] bg-gradient-to-tr from-pink-400 to-purple-500"></div>
-                            <div className="w-8 h-8 rounded-full border-2 border-[#14171C] bg-gray-800 flex items-center justify-center text-[10px] text-white font-bold">
-                                +{event.attendees}
+                        
+                        {/* RSVP Action */}
+                        <div className="flex justify-between items-center mt-6 pt-4 border-t border-[#202225]">
+                            <div className="flex -space-x-1.5 items-center">
+                                <div className="w-6 h-6 rounded-full bg-red-500 border border-[#292B2F]"></div>
+                                <div className="w-6 h-6 rounded-full bg-purple-500 border border-[#292B2F]"></div>
+                                <div className="w-6 h-6 rounded-full bg-green-500 border border-[#292B2F]"></div>
+                                <span className="text-[10px] text-gray-400 font-bold ml-2">+{event.attendees}</span>
                             </div>
-                        </div>
-
-                        <div className="flex space-x-3">
-                            <button className="px-4 py-2 bg-gray-800 hover:bg-gray-700 text-white rounded-lg text-sm font-semibold transition-colors flex items-center">
-                                <svg className="w-4 h-4 mr-2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"></path></svg>
-                                Share
-                            </button>
+                            
                             <button 
-                                onClick={handleRsvp}
-                                className={`px-6 py-2 rounded-lg text-sm font-bold shadow-lg transition-all transform hover:-translate-y-0.5 ${
-                                    isAttending ? 'bg-gray-600 text-white' : 'bg-blue-600 hover:bg-blue-500 text-white'
-                                }`}
+                                onClick={() => setIsAttending(!isAttending)}
+                                className={`${isAttending ? 'bg-[#393C43] hover:bg-[#40444B]' : 'bg-[#5865F2] hover:bg-[#4752C4]'} text-white text-xs font-bold px-4 py-2 rounded flex items-center transition-colors shadow-md`}
                             >
-                                {isAttending ? '✓ Going' : "I'm Going"}
+                                <svg className="w-3 h-3 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                {isAttending ? "I'm going" : "Join Event"}
                             </button>
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     );
