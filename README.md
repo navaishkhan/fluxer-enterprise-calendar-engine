@@ -16,5 +16,3 @@ Since AI-generated PRs are not accepted without meaningful human contribution, t
 * **CalDAV Export:** The `export.js` engine dynamically queries the Postgres DB and converts timestamps to proper iCalendar `.ics` format strings. 
 * **Guest Sandbox:** To satisfy the strict security constraints on Temporary Accounts, we heavily utilize stateless JWTs that encode the expiration time directly into the token.
 * **Component Rendering:** Please see the included `.html` previews for the expected visual layout of the components according to Andre's mockup.
-
-Good luck with the bounty submission!
