@@ -18,3 +18,12 @@ Since AI-generated PRs are not accepted without meaningful human contribution, t
 * **Component Rendering:** Please see the included `.html` previews for the expected visual layout of the components according to Andre's mockup.
 
 Good luck with the bounty submission!
+
+
+### Visual Implementation
+
+**Calendar Grid View**
+![Calendar Grid](https://raw.githubusercontent.com/navaishkhan/fluxer-enterprise-calendar-engine/214dd1cfb37be5a187f4dfc2032e32d57f11e284/docs/grid.png)
+
+**Event Modal View**
+![Event Modal](https://raw.githubusercontent.com/navaishkhan/fluxer-enterprise-calendar-engine/214dd1cfb37be5a187f4dfc2032e32d57f11e284/docs/modal.png)
